@@ -5,49 +5,49 @@ export default {
   props: {
     name: {
       type: String,
-      default: () => "lottie-" + Math.random()
+      default: () => "lottie-" + Math.random(),
     },
     width: {
       type: [String, Number],
-      default: () => "200px"
+      default: () => "200px",
     },
     height: {
       type: [String, Number],
-      default: () => "200px"
+      default: () => "200px",
     },
     background: {
       type: String,
-      default: "transparent"
+      default: "transparent",
     },
 
     loop: {
       type: [Boolean, Number],
-      default: () => false
+      default: () => false,
     },
     autoplay: {
       type: Boolean,
-      default: () => true
+      default: () => true,
     },
     renderer: {
       type: String,
-      default: () => "svg"
+      default: () => "svg",
     },
     path: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     animationData: {
       type: Object,
-      default: () => null
-    }
+      default: () => null,
+    },
   },
 
-  data: vm => ({
+  data: (vm) => ({
     style: {
       width: vm.getSize(vm.width),
       height: vm.getSize(vm.height),
-      background: vm.background
-    }
+      background: vm.background,
+    },
   }),
 
   mounted() {
@@ -69,12 +69,15 @@ export default {
         width: this.getSize(this.width),
         height: this.getSize(this.height),
         path: this.path,
-        animationData: this.animationData
+        animationData: this.animationData,
       });
 
       this.$emit("animControl", anim);
-    }
-  }
+      anim.addEventListener("complete", () => {
+        this.$emit("complete");
+      });
+    },
+  },
 };
 </script>
 
